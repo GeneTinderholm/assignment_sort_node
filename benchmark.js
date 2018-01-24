@@ -1,6 +1,8 @@
 const bubble = require('./bubble');
 const insertionSort = require('./insertion');
 const merge = require('./merge');
+const mySort = require('./impSort');
+const quicksort = require('./quickSort');
 
 function insertionSortTwo(array) {
   for (var i = 0; i < array.length; i++) {
@@ -59,12 +61,12 @@ const benchmark = array => {
 const benchmarkCompare = (array, ours, theirs) => {
   let holder = array.slice(0);
   let begin = new Date();
-  theirs(holder);
-  let theirTime = new Date() - begin;
-  holder = array.slice(0);
-  begin = new Date();
   ours(holder);
   let ourTime = new Date() - begin;
+  holder = array.slice(0);
+  begin = new Date();
+  theirs(holder);
+  let theirTime = new Date() - begin;
   return [ourTime, theirTime];
 };
 
@@ -78,13 +80,6 @@ const randomArray = n => {
   }
   return result
 };
-let testArray = randomArray(1000000);
-let compare = benchmarkCompare(testArray, merge, mergeSort)
-
-console.log("Ours: ", compare[0], " Theirs: ", compare[1]);
-// console.log(testArray);
-// console.log(testArray);
-// let start = new Date();
-// console.log(merge(testArray));
-// console.log(new Date() - start);
-// console.log(benchmarkCompare(testArray));
+let testArray = randomArray(100000);
+console.log('things');
+console.log(benchmarkCompare(testArray, mySort, quicksort));
